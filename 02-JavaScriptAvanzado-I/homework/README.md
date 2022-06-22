@@ -8,31 +8,31 @@ Determiná que será impreso en la consola, sin ejecutar el código.
 > Investiga cuál es la diferencia entre declarar una variable con `var` y directamente asignarle un valor.
 
 ```javascript
-x = 1;
-var a = 5;
-var b = 10;
+x = 1;                                 // x = 1
+var a = 5;                             // a = 5
+var b = 10;                            // b = 10
 var c = function(a, b, c) {
-  var x = 10;
-  console.log(x);
-  console.log(a);
+  var x = 10;                          // x = 10
+  console.log(x);  // Imprime: 10 | 10
+  console.log(a);  // Imprime: 5 |  8                 
   var f = function(a, b, c) {
-    b = a;
-    console.log(b);
-    b = c;
+    b = a;                             // b = a
+    console.log(b); // Imprime: 5 | 8
+    b = c;                             // b = c
     var x = 5;
   }
-  f(a,b,c);
-  console.log(b);
+  f(a,b,c);        
+  console.log(b);  // Imprime: 10 | 9
 }
-c(8,9,10);
-console.log(b);
-console.log(x);
+c(8,9,10);                             // a=8, b=9, c=10 
+console.log(b);  // Imprime: 9 | 10
+console.log(x);  // Imprime: 1 | 1
 ```
 
 ```javascript
-console.log(bar);
-console.log(baz);
-foo();
+console.log(bar);  // Imprime:  1 | undefined (ejecuta primero el console.log)
+console.log(baz);  // Imprime:  2 | Error (ejecuta primero el console.log)
+foo();    // Imprime: Hola! | Hola! (Se fija primero en las functions)
 function foo() { console.log('Hola!'); }
 var bar = 1;
 baz = 2;
@@ -43,19 +43,19 @@ var instructor = "Tony";
 if(true) {
     var instructor = "Franco";
 }
-console.log(instructor);
+console.log(instructor);  // Imprime: Franco | Franco (si el valor es false imprime Tony)
 ```
 
 ```javascript
 var instructor = "Tony";
-console.log(instructor);
+console.log(instructor);  // Imprime: Tony |  Tony
 (function() {
    if(true) {
       var instructor = "Franco";
-      console.log(instructor);
+      console.log(instructor);      // Imprime: Franco | Franco
    }
 })();
-console.log(instructor);
+console.log(instructor);   // Imprime: Franco | Tony (las funciones tiene otro scope, los if no)
 ```
 
 ```javascript
@@ -64,33 +64,33 @@ let pm = "Franco";
 if (true) {
     var instructor = "The Flash";
     let pm = "Reverse Flash";
-    console.log(instructor);
-    console.log(pm);
+    console.log(instructor);  // Imprime: the flash |  the flash
+    console.log(pm);          // Imprime: Reverse flash |  Reverse flash
 }
-console.log(instructor);
-console.log(pm);
+console.log(instructor);      // Imprime: The Flash |  The Flash
+console.log(pm);              // Imprime: Franco |   Franco
 ```
 ### Coerción de Datos
 
 ¿Cuál crees que será el resultado de la ejecución de estas operaciones?:
 
 ```javascript
-6 / "3"
-"2" * "3"
-4 + 5 + "px"
-"$" + 4 + 5
-"4" - 2
-"4px" - 2
-7 / 0
-{}[0]
-parseInt("09")
-5 && 2
-2 && 5
-5 || 0
-0 || 5
-[3]+[3]-[10]
-3>2>1
-[] == ![]
+6 / "3"                          //   2  |  2
+"2" * "3"                        //   6  |  6
+4 + 5 + "px"                     //  Nan |  "9px"
+"$" + 4 + 5                      // "$45"|  "$45"
+"4" - 2                          //   2  |   2
+"4px" - 2                        //  Nan |  Nan
+7 / 0                            // error|  Infinity
+{}[0]                            // Undef|  [0]
+parseInt("09")                   //   9  |  9
+5 && 2                           // Undef|  2
+2 && 5                           // Undef|  5
+5 || 0                           //   0  |  5
+0 || 5                           //   5  |  0
+[3]+[3]-[10]                     // [-4] |  23
+3>2>1                            // true |  false
+[] == ![]                        // false|  true
 ```
 
 > Si te quedó alguna duda repasá con [este artículo](http://javascript.info/tutorial/object-conversion).
@@ -102,8 +102,8 @@ parseInt("09")
 
 ```javascript
 function test() {
-   console.log(a);
-   console.log(foo());
+   console.log(a);             // Imprime: Undefined | Undefined (console.log lo toma antes que var)
+   console.log(foo());         // Imprime: 2 |  2 (Imprime el valor que retorna)
 
    var a = 1;
    function foo() {
@@ -127,7 +127,7 @@ function getFood(food) {
     return snack;
 }
 
-getFood(false);
+getFood(false);      // Imprime: 'Meow Mix' |  Undefined
 ```
 
 
@@ -147,12 +147,14 @@ var obj = {
    }
 };
 
-console.log(obj.prop.getFullname());
-
+console.log(obj.prop.getFullname());    // Imprime: 'Juan Perez' |  'Aurelio De Rosa'
+                                        // Estamos llamando una propiedad de un objeto (una funcion) Esta busca la propiedad en el objeto donde fue invocada
 var test = obj.prop.getFullname;
 
-console.log(test());
-```
+console.log(test());                   // Imprime: 'Juan Perez' |  'Juan Perez'
+                                       // La variable fue declarada con solo una propiedad del objeto, la cual copió, pero cuando necesita el this y no la encuentra se va al obj global
+                        
+``` 
 
 ### Event loop
 
@@ -166,5 +168,6 @@ function printing() {
    console.log(4);
 }
 
-printing();
+printing();    // 1,3,4,2 | 1,4,3,2
+               // El setTimeout se ejecuta despues del resto del código.
 ```
