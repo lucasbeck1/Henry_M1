@@ -88,9 +88,9 @@ parseInt("09")                   //   9  |  9
 2 && 5                           // Undef|  5
 5 || 0                           //   0  |  5
 0 || 5                           //   5  |  0
-[3]+[3]-[10]                     // [-4] |  23
-3>2>1                            // true |  false
-[] == ![]                        // false|  true
+[3]+[3]-[10]                     // [-4] |  23        (Primero suma 3+3 "33" y luego le resta 10)
+3>2>1                            // true |  false     (Primero compara (3 > 2) da por resultado true y luego compara el true > 1 )
+[] == ![]                        // false|  true      
 ```
 
 > Si te quedó alguna duda repasá con [este artículo](http://javascript.info/tutorial/object-conversion).

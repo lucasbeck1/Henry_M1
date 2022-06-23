@@ -19,6 +19,13 @@ function counter() {
   otroContador()      // 2
   otroContador()      // 3
    */
+
+  var contador = 0; // (Si creamos la variable contador dentro de la función (nueva), por más veces que la invoque, siempre va a devolver 1)
+  function nueva () {
+    return ++ contador
+  }
+
+  return (nueva);
 }
 
 function cacheFunction(cb) {
@@ -41,7 +48,39 @@ function cacheFunction(cb) {
   squareCache(5)    // no volverá a invocar a square, simplemente buscará en la caché cuál es el resultado de square(5) y lo retornará (tip: si usaste un objeto, podés usar hasOwnProperty) 
 
   */
+
+     let caches = {};
+
+    return function (arg) {
+
+      if (caches.hasOwnProperty(arg)) {
+        return (caches[arg]);             // Curiosidad: Si usamos la notacion de punto nos tira error ( return (caches.arg.); )
+      } 
+      else {
+        caches[arg] = cb(arg);            // Aqui tambien
+        return (caches[arg]);             // Aqui tambien
+      };
+    };
+    
+
+
+
+    // S1
+   /*  var cache = {};
+    return function (arg) {
+      if (cache.hasOwnProperty(arg)) {
+        return cache[arg];
+      } else {
+        cache[arg] = cb(arg);
+        return cache[arg];
+      }
+    }; */
+
+    // S2
 }
+
+
+
 
 // Bind
 
@@ -67,8 +106,8 @@ function getNombre() {
   Usando el método bind() guardar, en las dos variables declaradas a continuación, dos funciones que actúen como getNombre pero retornen el nombre del instructor y del alumno, respectivamente.
 */
 
-let getNombreInstructor;
-let getNombreAlumno;
+let getNombreInstructor = getNombre.bind(instructor);
+let getNombreAlumno = getNombre.bind(alumno);
 
 /*
   Ejercicio 4
@@ -80,9 +119,10 @@ function crearCadena(delimitadorIzquierda, delimitadorDerecha, cadena) {
   return delimitadorIzquierda + cadena + delimitadorDerecha;
 }
 
-let textoAsteriscos;
-let textoGuiones;
-let textoUnderscore;
+
+let textoAsteriscos = crearCadena.bind(this, '*', '*');
+let textoGuiones = crearCadena.bind(this, '-', '-');
+let textoUnderscore = crearCadena.bind(this, '_', '_');
 
 // No modifiquen nada debajo de esta linea
 // --------------------------------
