@@ -54,29 +54,13 @@ function cacheFunction(cb) {
     return function (arg) {
 
       if (caches.hasOwnProperty(arg)) {
-        return (caches[arg]);             // Curiosidad: Si usamos la notacion de punto nos tira error ( return (caches.arg.); )
+        return (caches[arg]);             // Curiosidad: Si usamos la notacion de punto nos tira error ==> return (caches.arg.) 
       } 
       else {
         caches[arg] = cb(arg);            // Aqui tambien
         return (caches[arg]);             // Aqui tambien
       };
     };
-    
-
-
-
-    // S1
-   /*  var cache = {};
-    return function (arg) {
-      if (cache.hasOwnProperty(arg)) {
-        return cache[arg];
-      } else {
-        cache[arg] = cb(arg);
-        return cache[arg];
-      }
-    }; */
-
-    // S2
 }
 
 
@@ -120,9 +104,9 @@ function crearCadena(delimitadorIzquierda, delimitadorDerecha, cadena) {
 }
 
 
-let textoAsteriscos = crearCadena.bind(this, '*', '*');
-let textoGuiones = crearCadena.bind(this, '-', '-');
-let textoUnderscore = crearCadena.bind(this, '_', '_');
+let textoAsteriscos = crearCadena.bind(this, '*', '*');   // tambien es válido y se ve con mas claridad:   crearCadena.bind(this, "*", "*", "hola");
+let textoGuiones = crearCadena.bind(this, '-', '-');      //tambien lo podemos hacer con null:             crearCadena.bind(null, "-", "-", "hola");
+let textoUnderscore = crearCadena.bind(this, '_', '_');   //tambien lo podemos hacer con undefined:        crearCadena.bind(undefined, "_", "_", "hola");
 
 // No modifiquen nada debajo de esta linea
 // --------------------------------
