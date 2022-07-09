@@ -16,8 +16,13 @@ const {
 
 var countArray = function(array) {
     // Tu código aca:
-    
+    let arrayMod = array.join().split(',')
+    return (arrayMod);
 }
+
+
+
+
 
 
 // Implementar la función countProps: a partir de un objeto en el cual cada propiedad puede contener
@@ -36,11 +41,29 @@ var countArray = function(array) {
 // countProps(obj)--> Deberia devolver 10 ya que el objeto inicial tiene 3 propiedades, pero a su vez
 // dentro de a tenemos 3 propiedades mas, luego a3 tiene otras 3 y por ultimo c tiene una extra.
 // Propiedades: a, a1, a2, a3, f, a, c, o, b, c --> 10 en total
+// Tener en vuenta que el ultimo objeyo anidado {a:1} esta dentro de un array por eso no cuenta en este ejemplo
 
 var countProps = function(obj) {
     // Tu código aca:
 
+    let valores = Object.values(obj);
+    let suma = valores.length;
+    
+    for (let i = 0; i < valores.length; i++) {
+        if (typeof (valores[i]) === 'object' && (Array.isArray(valores[i])) === false) {
+            // Descarte los array porque el typeof no los diferencia de los objetos
+            suma += countProps(valores[i]);
+        }
+    }
+
+    return(suma);
+
 }
+
+
+
+
+
 
 
 // Implementar el método changeNotNumbers dentro del prototype de LinkedList que deberá cambiar
@@ -57,6 +80,14 @@ LinkedList.prototype.changeNotNumbers = function(){
 }
 
 
+
+
+
+
+
+
+
+
 // Implementar la función mergeQueues que a partir de dos queues recibidas por parametro
 // debe devolver una nueva Queue que vaya mergeando los nodos de las anteriores.
 // Ejemplo:
@@ -68,7 +99,28 @@ LinkedList.prototype.changeNotNumbers = function(){
 var mergeQueues = function(queueOne, queueTwo) {
     // Tu código aca:
 
+    let queueTree = new Queue();
+    
+    let num1 = queueOne.length;
+    let num2 = queueTwo.length;
+
+    if (num2 > num1) {num1 = num2}
+    
+    for (let i = 0; i < num1; i++) {
+        queueTree.enqueue(queueOne[i]);
+        queueTree.enqueue(queueTwo[i]);
+    }
+
+    return (queueTree);
 }
+
+
+
+
+
+
+
+
 
 
 // Implementar la funcion closureMult que permita generar nuevas funciones que representen
@@ -82,14 +134,39 @@ var mergeQueues = function(queueOne, queueTwo) {
 
 var closureMult = function(multiplier) {
     // Tu código aca:
+    
+    // Funcion genera: [num*0, num*1, num*2, num*3]
+    let arrayMul = [];
+    for (let i = 0; i < 11; i++) {
+        arrayMul.push(multiplier * i)
+    }
 
+    return (arrayMul);
 }
+
+
+
+
+
+
+
+
 
 // Implementar el método sum dentro del prototype de BinarySearchTree
 // que debe retornar la suma total de los valores dentro de cada nodo del arbol
 BinarySearchTree.prototype.sum = function() {
     // Tu código aca:
+    let suma = this.value
 
+    if (this.left) {suma += (this.left.sum())};
+    if (this.right) {suma += (this.right.sum())}; 
+
+
+//Curiosidad: si no coloco el igual antes de la suma, no se suman los valores porque no se guarda en la variable suma, es decir, en el if si vamos a hacer la operación suma pero luego cuando le pidamos el valor de la variable, esta va a ser igual que su valor guardado:
+//  if (this.left) {suma + (this.left.sum())};
+//  if (this.right) {suma + (this.right.sum())};
+
+    return (suma);
 }
 
 module.exports = {
