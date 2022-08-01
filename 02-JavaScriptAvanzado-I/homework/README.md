@@ -13,26 +13,26 @@ var a = 5;                             // a = 5
 var b = 10;                            // b = 10
 var c = function(a, b, c) {
   var x = 10;                          // x = 10
-  console.log(x);  // Imprime: 10 | 10
-  console.log(a);  // Imprime: 5 |  8                 
+  console.log(x);  // Imprime:  10
+  console.log(a);  // Imprime:  8                 
   var f = function(a, b, c) {
     b = a;                             // b = a
-    console.log(b); // Imprime: 5 | 8
+    console.log(b); // Imprime:  8
     b = c;                             // b = c
     var x = 5;
   }
   f(a,b,c);        
-  console.log(b);  // Imprime: 10 | 9
+  console.log(b);  // Imprime:  9
 }
 c(8,9,10);                             // a=8, b=9, c=10 
-console.log(b);  // Imprime: 9 | 10
-console.log(x);  // Imprime: 1 | 1
+console.log(b);  // Imprime:  10
+console.log(x);  // Imprime:  1
 ```
 
 ```javascript
-console.log(bar);  // Imprime:  1 | undefined (ejecuta primero el console.log)
-console.log(baz);  // Imprime:  2 | Error (ejecuta primero el console.log)
-foo();    // Imprime: Hola! | Hola! (Se fija primero en las functions)
+console.log(bar);  // Imprime:   undefined (ejecuta primero el console.log)
+console.log(baz);  // Imprime:   Error (ejecuta primero el console.log)
+foo();    // Imprime:  Hola! (Se fija primero en las functions)
 function foo() { console.log('Hola!'); }
 var bar = 1;
 baz = 2;
@@ -43,19 +43,19 @@ var instructor = "Tony";
 if(true) {
     var instructor = "Franco";
 }
-console.log(instructor);  // Imprime: Franco | Franco (si el valor es false imprime Tony)
+console.log(instructor);  // Imprime:  Franco (si el valor es false imprime Tony)
 ```
 
 ```javascript
 var instructor = "Tony";
-console.log(instructor);  // Imprime: Tony |  Tony
+console.log(instructor);  // Imprime:  Tony
 (function() {
    if(true) {
       var instructor = "Franco";
-      console.log(instructor);      // Imprime: Franco | Franco
+      console.log(instructor);      // Imprime:  Franco
    }
 })();
-console.log(instructor);   // Imprime: Franco | Tony (las funciones tiene otro scope, los if no)
+console.log(instructor);   // Imprime:  Tony (las funciones tiene otro scope, los if no)
 ```
 
 ```javascript
@@ -64,33 +64,33 @@ let pm = "Franco";
 if (true) {
     var instructor = "The Flash";
     let pm = "Reverse Flash";
-    console.log(instructor);  // Imprime: the flash |  the flash
-    console.log(pm);          // Imprime: Reverse flash |  Reverse flash
+    console.log(instructor);  // Imprime:  The Flash
+    console.log(pm);          // Imprime:  Reverse Flash
 }
-console.log(instructor);      // Imprime: The Flash |  The Flash
-console.log(pm);              // Imprime: Franco |   Franco
+console.log(instructor);      // Imprime:  The Flash
+console.log(pm);              // Imprime:  Franco
 ```
 ### Coerción de Datos
 
 ¿Cuál crees que será el resultado de la ejecución de estas operaciones?:
 
 ```javascript
-6 / "3"                          //   2  |  2
-"2" * "3"                        //   6  |  6
-4 + 5 + "px"                     //  Nan |  "9px"
-"$" + 4 + 5                      // "$45"|  "$45"
-"4" - 2                          //   2  |   2
-"4px" - 2                        //  Nan |  Nan
-7 / 0                            // error|  Infinity
-{}[0]                            // Undef|  [0]
-parseInt("09")                   //   9  |  9
-5 && 2                           // Undef|  2
-2 && 5                           // Undef|  5
-5 || 0                           //   0  |  5
-0 || 5                           //   5  |  0
-[3]+[3]-[10]                     // [-4] |  23        (Primero suma 3+3 "33" y luego le resta 10)
-3>2>1                            // true |  false     (Primero compara (3 > 2) da por resultado true y luego compara el true > 1 )
-[] == ![]                        // false|  true      
+6 / "3"                          //    2
+"2" * "3"                        //    6
+4 + 5 + "px"                     //  "9px"
+"$" + 4 + 5                      //  "$45"
+"4" - 2                          //    2
+"4px" - 2                        //   Nan
+7 / 0                            //  Infinity
+{}[0]                            //   [0]
+parseInt("09")                   //    9
+5 && 2                           //    2
+2 && 5                           //    5
+5 || 0                           //    5
+0 || 5                           //    0
+[3]+[3]-[10]                     //    23        (Primero suma 3+3 "33" y luego le resta 10)
+3>2>1                            //   false     (Primero compara (3 > 2) da por resultado true y luego compara el true > 1 )
+[] == ![]                        //   true      
 ```
 
 > Si te quedó alguna duda repasá con [este artículo](http://javascript.info/tutorial/object-conversion).
@@ -102,8 +102,8 @@ parseInt("09")                   //   9  |  9
 
 ```javascript
 function test() {
-   console.log(a);             // Imprime: Undefined | Undefined (console.log lo toma antes que var)
-   console.log(foo());         // Imprime: 2 |  2 (Imprime el valor que retorna)
+   console.log(a);             // Imprime:  Undefined (console.log lo toma antes que var)
+   console.log(foo());         // Imprime:  2 (Imprime el valor que retorna)
 
    var a = 1;
    function foo() {
@@ -112,6 +112,18 @@ function test() {
 }
 
 test();
+```
+
+```javascript
+function a() {
+    console.log(global);      // Imprime: 'Hola!'   -  cuando se ejecuta la función por primera vez ya que var global, declarada abajo, hace hoisting
+    global = "Hello!";        // luego global se reescribe
+}
+
+var global = "Hola!";
+
+a(); //
+console.log(global);          // Luego de ejecutarse la función a(), global === 'Hello!'
 ```
 
 Y el de este código? :
@@ -127,7 +139,7 @@ function getFood(food) {
     return snack;
 }
 
-getFood(false);      // Imprime: 'Meow Mix' |  Undefined
+getFood(false);      // Imprime:   Undefined
 ```
 
 
@@ -147,11 +159,11 @@ var obj = {
    }
 };
 
-console.log(obj.prop.getFullname());    // Imprime: 'Juan Perez' |  'Aurelio De Rosa'
+console.log(obj.prop.getFullname());    // Imprime:   'Aurelio De Rosa'
                                         // Estamos llamando una propiedad de un objeto (una funcion) Esta busca la propiedad en el objeto donde fue invocada
 var test = obj.prop.getFullname;
 
-console.log(test());                   // Imprime: 'Juan Perez' |  'Juan Perez'
+console.log(test());                   // Imprime:   'Juan Perez'
                                        // La variable fue declarada con solo una propiedad del objeto, la cual copió, pero cuando necesita el this y no la encuentra se va al obj global
                         
 ``` 
@@ -168,6 +180,6 @@ function printing() {
    console.log(4);
 }
 
-printing();    // 1,3,4,2 | 1,4,3,2
+printing();    // Imprime: 1,4,3,2
                // El setTimeout se ejecuta despues del resto del código.
 ```

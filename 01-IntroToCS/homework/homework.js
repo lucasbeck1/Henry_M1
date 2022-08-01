@@ -101,6 +101,7 @@ function DecimalABinario(num) {
 
 
   //     Metodo con Formulas Profe
+
   //num = Numero (Number)
   // 11 = 1 0 1 1
   // 11 -- 11/2 -- 5,5 -- 5 | 1
@@ -109,23 +110,45 @@ function DecimalABinario(num) {
   // 1  -- 1/2  -- 0,5 -- 0 | 1
 
   /*
+   // (1)
   var rest = '';
 
   // while(condicion)
-  // while (num >== 1)  {
+  // while (num >= 1)  {
   // rest = num % 2 + rest;
   // num = Math.floor(num/2);
   //}
 
+  return (rest);
+
+
+  // (2)
+  var rest = '';
+
   while (num !== 0) {
     rest = num % 2 + rest;
+
       // Cuidado con poner rest + num % 2
       // Porque al ser un string si importa el orden de la suma
       // (no se estan sumando los numeros sino concatenando)
+
     num = Math.floor(num/2);
   }
   return (rest);
   */
+
+
+  // (3)
+  // let binario = [];
+  
+  //   while (num > 0) {
+  //     binario.unshift(num % 2);
+  //     num = Math.floor(num / 2);
+  //   }
+  
+  //   return binario.join('')
+  // }
+
 }
 
 module.exports = {
